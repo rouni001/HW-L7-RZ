@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Page Error</title>
+<style>
+.text {
+font-weight: 600;
+height: 40px;
+background-color: white;
+}
+.text-error {
+font-weight: 600;
+height: 40px;
+background-color: white;
+color: red
+}   
+html, body {
+height: 500px;
+font-family: "arial", "sans-serif";
+color: #303;
+}
+</style>    
+</head>    
+<body>
+    <div class="text">
+    An error occured!
+    Please make sure the submitted data follow the requirements and try again from the home page <a href='/benford/'> here</a>.
+    </div>
+    <div class="text-error">
+    {{ error_message }}
+    </div>
+</body>
+</html>
