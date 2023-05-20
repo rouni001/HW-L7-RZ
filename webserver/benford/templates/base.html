@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+    {% block title %}    
+    {% endblock title %}
+    </title>
+<style>
+.text {
+font-weight: 600;
+height: 40px;
+background-color: white;
+}
+.text-error {
+font-weight: 600;
+height: 40px;
+background-color: white;
+color: red
+}   
+html, body {
+height: 500px;
+font-family: "arial", "sans-serif";
+color: #303;
+}
+</style>    
+</head>    
+<body>
+    {% block body %}
+    {% endblock body %}
+</body>
+</html>
