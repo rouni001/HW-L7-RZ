@@ -1,38 +1,27 @@
-{% load static %}
-<html>
-    <head>
-        <title>Results Page</title>
-        <style>
-.text {
-font-weight: 600;
-height: 40px;
-background-color: white;
-}          
-html, body {
-height: 500px;
-font-family: "arial", "sans-serif";
-color: #303;
-}            
-        </style>
-    </head> 
-<body>
-    <div>
-        <P>
-            <img src="data:image/png;base64,{{ BL_analysis.plot_image}}" />
-        </P>
-        <p class="text"> 
-            Number of observations: {{ BL_analysis.number_observations }} <br/>
-            Chi-Square test score: {{ BL_analysis.statistical_test_analyser.chi_square_statistic|floatformat:2 }} <br/>
-        </p>
-        <p class="text">
-            The analysis of data fitness against the Benford's Law at 5% significance indicates that 
-            {% if BL_analysis.is_data_unnatural %}
-            this set of observed data is likely unnatural. <br/>
-            {% else %}
-            this set of observed data may be natural. <br/>
-            {% endif %}        
-        </p>
-        <p class="text"> Please return to the home page to process another dataset!</p>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}
+    Results Page
+{% endblock title %}
+{% block body %}
+<div class="text">
+    <h1>Data analysis completed!</h1>
+    <p>
+        <img src="data:image/png;base64,{{ BL_analysis.plot_image}}" />
+    </p>
+    <p> 
+        Number of observations: {{ BL_analysis.number_observations }} <br/>
+        Chi-Square test score: {{ BL_analysis.statistical_test_analyser.chi_square_statistic|floatformat:2 }} 
+        (Critical value at {{ BL_analysis.statistical_test_analyser.p_value }}% significance level: {{ BL_analysis.statistical_test_analyser.critical_value }})
+        <br/>
+    </p>
+    <p>
+        The analysis of data fitness against the Benford's Law shows that 
+        {% if BL_analysis.is_data_unnatural %}
+        this set of observed data is likely unnatural. <br/>
+        {% else %}
+        this set of observed data may be natural. <br/>
+        {% endif %}        
+    </p>
+    <p> Please return to the <a href="/benford/">home page</a> to process another dataset!</p>
+</div>
+{% endblock body %}

@@ -1,31 +1,20 @@
-<html>
-    <head>
-        <title>Welcome! Check here Benson's Law!</title>
-        <style>
-.text {
-font-weight: 600;
-height: 40px;
-background-color: white;
-}          
-html, body {
-height: 500px;
-font-family: "arial", "sans-serif";
-color: #303;
-}
-        </style>
-    </head> 
-<body>
+{% extends "base.html" %}
+{% block title %}
+    Welcome! Analyze your data here!
+{% endblock title %}
+{% block body %}
 <div class="text">
     <h1>Some data look artificial or suspicious?</h1>
-    <p> You have a list of data that do not seem to follow the Benford distribution? 
+    <p> You have a list of data that do not seem to follow a naturally distributed pattern? 
         Then, verify here how likely these data follow the Benford distribution!</p>
     <p>
         Select and upload your data below. 
-        Requirements: 
+        File Requirements: 
         <ul>
             <li>File must be tab-delimited in *.txt or *.csv format, and uncompressed ;</li>
-            <li>File must be multi-columns with a header, and the last column is 
-                to contain the integer values to test the Benford's Law against.</li>
+            <li>File must have one or several columns, with a header, and the data you want 
+                to analyze are in the last column ; </li>
+            <li>Values in the last column (except for the header) must all be integers.</li>
         </ul>
     </p>
 
@@ -36,6 +25,4 @@ color: #303;
         <input type="submit">
     </form>
 </div>
-
-</body>
-</html>
+{% endblock body %}
