@@ -1,9 +1,5 @@
-from benford.utils import get_lead_digits_frequencies
+from benford.utils import get_lead_digits_frequencies, create_paired_bars_figure 
 from scipy.stats import chisquare
-
-import numpy as np
-import matplotlib.pyplot as plt
-import base64
 
 
 # Expected Frequency Distribution in Benford's Law (BL)
@@ -19,6 +15,8 @@ BENFORD_EXP_DIST = [
     4.0,
 ]
 
+# Default p-value for the Chi-Square distribution
+CHI_SQUARE_P_VALUE_PERCENT = 5
 # Critical value at 5% significance level for the Chi-Square distribution (DF=8)
 CHI_SQUARE_CRITIAL_VALUE = 15.51
 
@@ -27,12 +25,13 @@ class BenfordLawFitnessAnalyzer:
     def __init__(self, frequencies) -> None:
         chisquare_test = chisquare(frequencies, f_exp=BENFORD_EXP_DIST)
         self.chi_square_statistic = chisquare_test.statistic
+        self.critical_value = CHI_SQUARE_CRITIAL_VALUE
+        self.p_value = CHI_SQUARE_P_VALUE_PERCENT
 
     def is_null_hypothesis_rejected(self) -> bool:
         return self.chi_square_statistic > CHI_SQUARE_CRITIAL_VALUE
 
     
-# Create your models here.
 class ObservedDataAnalyzer:
     def __init__(self, file) -> None:
         self.filename = file.name[:-4]
@@ -63,25 +62,15 @@ class ObservedDataAnalyzer:
         if not self.is_data_valid():
             return
         if self.plot_image is None:
-            plot_file_path = "webserver/benford/static/results.png"
-
-            color = "maroon" if self.is_data_unnatural else "green"
-            x_axis = np.arange(1, 10, 1) 
-            plt.switch_backend('Agg') 
-            
-            fig = plt.figure(figsize = (8, 5))
-            plt.bar(x_axis-0.2, BENFORD_EXP_DIST, color="blue", width = 0.4)
-            plt.bar(x_axis+0.2, self.lead_digits_frequencies, color=color, width = 0.4)
-            
-            plt.xlabel("Lead Digit")
-            plt.ylabel("Frequencies")
-            plt.title("Expected vs Observed Frequencies of Lead Digits")
-            plt.legend(["Benford Law", self.filename])
-            plt.xticks(x_axis)
-            plt.savefig(plot_file_path)
-
-            # Encode plot image as text
-            with open(plot_file_path, "rb") as image_file:
-                image_data = base64.b64encode(image_file.read()).decode('utf-8')
-
-            self.plot_image = image_data
+            self.plot_image = create_paired_bars_figure(
+                BENFORD_EXP_DIST,
+                self.lead_digits_frequencies,
+                "webserver/benford/static/results.png",
+                "Lead Digit",
+                "Frequencies (%)",
+                "Expected vs Observed Frequencies of Lead Digits",
+                "Benford Law",
+                self.filename,
+                "maroon" if self.is_data_unnatural else "green",
+                1
+            )
