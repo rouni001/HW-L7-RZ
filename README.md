@@ -29,18 +29,16 @@ The column used by this solution is the last column and must contain only intege
 python3 -m venv .
 source ./bin/activate
 ```
-3. Install the required application and packages with 'pip3' (Windows/Linux users should use 'pip' instead):
+3. Copy this repo into your directory and move into the directory "HW-L7-*" 
+4. Install the required dependencies using the requirements.txt file:
 ```
-pip3 install django
-pip3 install matplotlib 
-pip3 install scipy
+ pip install -r requirements.txt
 ```
-4. Copy this repo into your directory and move in the directory "HW-L7-*"
 5. Launch the webserver:
 ```
 python webserver/manage.py runserver
 ```
-6. Then open "localhost:8000/benford" from your favorite browser, and follow the instructions provided on it.
+6. Then open "localhost:8000/benford" from your favorite browser, and follow the instructions provided on it!
 
 
 ### QUESTIONS
