@@ -29,7 +29,7 @@ The column used by this solution is the last column and must contain only intege
 python3 -m venv .
 source ./bin/activate
 ```
-3. Copy this repo into your directory and move into the directory "HW-L7-*" 
+3. Clone this repo or download it into your directory (and move into the directory "HW-L7-*") 
 4. Install the required dependencies using the requirements.txt file:
 ```
  pip install -r requirements.txt
