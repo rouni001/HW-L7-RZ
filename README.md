@@ -41,5 +41,11 @@ python webserver/manage.py runserver
 6. Then open "localhost:8000/benford" from your favorite browser, and follow the instructions provided on it!
 
 
+### RUNNING UNIT TESTS
+Unit tests can be executed via the following command (with details):
+```
+./webserver/manage.py test benford --verbosity 2
+```
+
 ### QUESTIONS
 Any questions or feedback? please reach out at rachid.ounit@gmail.com
